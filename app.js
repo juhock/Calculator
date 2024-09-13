@@ -12,21 +12,16 @@ addEventListener("click", function (e) {
   if (e.target.tagName === "BUTTON") {
     inputBox.value += input;
     arr.push(input);
-    console.log(arr);
 
     if (input === "C") {
       inputBox.value = "";
       arr = [];
-      console.log(arr);
     } else if (input === "=") {
       //join arr
       const joinedArr = arr.join(" ");
       const sliced = joinedArr.slice(0, -1);
-      console.log(sliced);
       const evaluated = eval(sliced);
-      console.log(evaluated);
-      //eval(joinedArr)
-      // inputBox.value = evaluated arr);
+      inputBox.value = evaluated;
     }
   }
 });
