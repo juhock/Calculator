@@ -6,7 +6,13 @@ const inputBox = document.querySelector("input");
 
 addEventListener("click", function (e) {
   e.preventDefault();
-  if (e.target.tagName === "BUTTON" && e.target.classList.contains("btn")) {
-    console.log(e.target.dataset[e.target.id]);
+  const input = e.target.dataset[e.target.id];
+
+  if (e.target.tagName === "BUTTON") {
+    inputBox.value += input;
+  }
+
+  if (input === "C") {
+    inputBox.value = "";
   }
 });
