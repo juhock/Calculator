@@ -18,9 +18,13 @@ addEventListener("click", function (e) {
       arr = [];
     } else if (input === "=") {
       const joinedArr = arr.join("");
+
       const sliced = joinedArr.slice(0, -1);
       const evaluated = eval(sliced);
       inputBox.value = evaluated;
+      arr = [];
+      arr.push(evaluated);
     }
   }
+  console.log(arr);
 });
