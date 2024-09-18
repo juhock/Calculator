@@ -15,7 +15,9 @@ addEventListener("click", function (e) {
     inputBox.value += input;
     arr.push(input);
 
-    if (input === "C") {
+    if (regex.test(inputBox.value) === true) {
+      arr.pop();
+    } else if (input === "C") {
       inputBox.value = "";
       arr = [];
     } else if (input === "=") {
