@@ -5,6 +5,8 @@ const inputBox = document.querySelector("input");
 // const btn7Val = +btn7.dataset.seven;
 let arr = [];
 
+const regex = /[+\-*/]{2}/;
+
 addEventListener("click", function (e) {
   e.preventDefault();
   const input = e.target.dataset[e.target.id];
@@ -13,7 +15,12 @@ addEventListener("click", function (e) {
     inputBox.value += input;
     arr.push(input);
 
-    if (input === "C") {
+    if (regex.test(inputBox.value) === true) {
+      arr.pop();
+      inputBox.value = inputBox.value.slice(0, -1);
+      console.log(regex.test(inputBox.value));
+      console.log(inputBox.value);
+    } else if (input === "C") {
       inputBox.value = "";
       arr = [];
     } else if (input === "=") {
