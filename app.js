@@ -15,6 +15,9 @@ function clearDisplay() {
   arr = [];
 }
 
+// create function for = button (calculate())
+// create function adjustFontSize() for display
+
 addEventListener("click", function (e) {
   e.preventDefault();
   const input = e.target.dataset[e.target.id];
