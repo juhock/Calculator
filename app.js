@@ -1,12 +1,19 @@
 const inputBox = document.querySelector("input");
 const button = document.getElementById("clear");
 
-//targets button 7
-// const btn7 = document.getElementById("seven");
-// const btn7Val = +btn7.dataset.seven;
 let arr = [];
-
 const regex = /[+\-*/]{2}/;
+
+function clearDisplay() {
+  button.style.backgroundImage = "url('./media/atomic.png')";
+
+  setTimeout(() => {
+    button.style.backgroundImage = "url('./media/download.png')";
+  }, 500);
+
+  inputBox.value = "";
+  arr = [];
+}
 
 addEventListener("click", function (e) {
   e.preventDefault();
@@ -20,14 +27,7 @@ addEventListener("click", function (e) {
       arr.pop();
       inputBox.value = inputBox.value.slice(0, -1);
     } else if (input === "C") {
-      button.style.backgroundImage = "url('./media/atomic.png')";
-
-      setTimeout(() => {
-        button.style.backgroundImage = "url('./media/download.png')";
-      }, 500);
-
-      inputBox.value = "";
-      arr = [];
+      clearDisplay();
     } else if (input === "=") {
       const joinedArr = arr.join("");
 
