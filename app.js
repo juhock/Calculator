@@ -1,4 +1,5 @@
 const inputBox = document.querySelector("input");
+const button = document.getElementById("clear");
 
 //targets button 7
 // const btn7 = document.getElementById("seven");
@@ -19,6 +20,12 @@ addEventListener("click", function (e) {
       arr.pop();
       inputBox.value = inputBox.value.slice(0, -1);
     } else if (input === "C") {
+      button.style.backgroundImage = "url('./media/atomic.png')";
+
+      setTimeout(() => {
+        button.style.backgroundImage = "url('./media/download.png')";
+      }, 500);
+
       inputBox.value = "";
       arr = [];
     } else if (input === "=") {
