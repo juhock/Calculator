@@ -41,4 +41,6 @@ addEventListener("click", function (e) {
       arr.push(evaluated);
     }
   }
+  console.log(arr);
+  console.log(inputBox.value);
 });
