@@ -3,7 +3,6 @@ const button = document.getElementById("clear");
 
 let arr = [];
 const regex = /[+\-*/]{2}/;
-const regexEquals = /[^+\]
 
 function clearDisplay() {
   button.style.backgroundImage = "url('./media/atomic.png')";
@@ -42,4 +41,6 @@ addEventListener("click", function (e) {
       arr.push(evaluated);
     }
   }
+  console.log(arr);
+  console.log(inputBox.value);
 });
