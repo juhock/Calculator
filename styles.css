@@ -30,6 +30,7 @@ body {
   flex-direction: column;
 
   border-radius: 5px;
+  box-shadow: 2px 3px 3px rgb(0, 213, 255);
 }
 
 #display {
@@ -58,4 +59,20 @@ body {
   padding: 20px 25px;
   font-size: larger;
   width: 80px;
+  box-shadow: 2px 3px 3px rgb(0, 213, 255);
+  border-radius: 50%;
+}
+
+.iconButton {
+  width: 150px;
+  height: 150px;
+  background-image: url("./media/download.png");
+  background-color: rgba(255, 0, 0, 0);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: none;
+  border-radius: 0;
 }
