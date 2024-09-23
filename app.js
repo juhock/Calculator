@@ -34,6 +34,7 @@ addEventListener("click", function (e) {
     } else {
       inputBox.style.fontSize = "50px";
     }
+    inputBox.scrollLeft = inputBox.scrollWidth;
 
     if (regex.test(inputBox.value) === true) {
       arr.pop();
