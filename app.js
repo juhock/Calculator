@@ -2,7 +2,7 @@ const inputBox = document.querySelector("input");
 const button = document.getElementById("clear");
 
 let arr = [];
-const regex = /[+\-*/]{2}/;
+const regex = /[+\-*=/]{2}/;
 
 function clearDisplay() {
   button.style.backgroundImage = "url('./media/atomic.png')";
