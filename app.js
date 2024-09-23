@@ -38,13 +38,17 @@ addEventListener("click", function (e) {
     } else if (input === "C") {
       clearDisplay();
     } else if (input === "=") {
-      const joinedArr = arr.join("");
+      if (inputBox.value === "") {
+        return;
+      } else {
+        const joinedArr = arr.join("");
 
-      const sliced = joinedArr.slice(0, -1);
-      const evaluated = eval(sliced);
-      inputBox.value = evaluated;
-      arr = [];
-      arr.push(evaluated);
+        const sliced = joinedArr.slice(0, -1);
+        const evaluated = eval(sliced);
+        inputBox.value = evaluated;
+        arr = [];
+        arr.push(evaluated);
+      }
     }
   }
   console.log(arr);
