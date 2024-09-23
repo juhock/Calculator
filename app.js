@@ -16,8 +16,16 @@ function clearDisplay() {
   arr = [];
 }
 
-// create function for = button (calculate())
-// create function adjustFontSize() for display
+function adjustFontSize() {
+  if (inputBox.value.length > 10) {
+    inputBox.style.fontSize = "40px";
+  } else if (inputBox.value.length > 5) {
+    inputBox.style.fontSize = "50px";
+  } else {
+    inputBox.style.fontSize = "60px";
+  }
+  inputBox.scrollLeft = inputBox.scrollWidth;
+}
 
 addEventListener("click", function (e) {
   e.preventDefault();
@@ -27,10 +35,13 @@ addEventListener("click", function (e) {
     inputBox.value += input;
     arr.push(input);
 
+    adjustFontSize();
+    
     if (regex2.test(inputBox.value) === true) {
       arr.shift();
       inputBox.value = inputBox.value.slice(0, -1);
     }
+
 
     if (regex.test(inputBox.value) === true) {
       arr.pop();
@@ -51,6 +62,6 @@ addEventListener("click", function (e) {
       }
     }
   }
-  console.log(arr);
-  console.log(inputBox.value);
+  // console.log(arr);
+  // console.log(inputBox.value);
 });
