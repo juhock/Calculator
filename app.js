@@ -25,6 +25,15 @@ addEventListener("click", function (e) {
   if (e.target.tagName === "BUTTON") {
     inputBox.value += input;
     arr.push(input);
+    console.log(inputBox.value.length);
+
+    if (inputBox.value.length > 10) {
+      inputBox.style.fontSize = "30px";
+    } else if (inputBox.value.length > 5) {
+      inputBox.style.fontSize = "40px";
+    } else {
+      inputBox.style.fontSize = "50px";
+    }
 
     if (regex.test(inputBox.value) === true) {
       arr.pop();
@@ -41,6 +50,6 @@ addEventListener("click", function (e) {
       arr.push(evaluated);
     }
   }
-  console.log(arr);
-  console.log(inputBox.value);
+  // console.log(arr);
+  // console.log(inputBox.value);
 });
