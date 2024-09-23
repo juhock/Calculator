@@ -15,8 +15,16 @@ function clearDisplay() {
   arr = [];
 }
 
-// create function for = button (calculate())
-// create function adjustFontSize() for display
+function adjustFontSize() {
+  if (inputBox.value.length > 10) {
+    inputBox.style.fontSize = "40px";
+  } else if (inputBox.value.length > 5) {
+    inputBox.style.fontSize = "50px";
+  } else {
+    inputBox.style.fontSize = "60px";
+  }
+  inputBox.scrollLeft = inputBox.scrollWidth;
+}
 
 addEventListener("click", function (e) {
   e.preventDefault();
@@ -25,17 +33,7 @@ addEventListener("click", function (e) {
   if (e.target.tagName === "BUTTON") {
     inputBox.value += input;
     arr.push(input);
-    console.log(inputBox.value.length);
-
-    if (inputBox.value.length > 10) {
-      inputBox.style.fontSize = "30px";
-    } else if (inputBox.value.length > 5) {
-      inputBox.style.fontSize = "40px";
-    } else {
-      inputBox.style.fontSize = "50px";
-    }
-    inputBox.scrollLeft = inputBox.scrollWidth;
-
+    adjustFontSize();
     if (regex.test(inputBox.value) === true) {
       arr.pop();
       inputBox.value = inputBox.value.slice(0, -1);
