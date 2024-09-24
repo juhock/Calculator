@@ -58,8 +58,20 @@ addEventListener("click", function (e) {
     if (input === "C") {
       clearDisplayBomb();
     }
+
     if (input === "=") {
-      equals();
+      if (
+        arr[0] === "=" ||
+        arr[0] === "+" ||
+        // arr[0] === "-" ||
+        arr[0] === "*" ||
+        arr[0] === "/" ||
+        arr[0] === "."
+      ) {
+        clear();
+      } else {
+        equals();
+      }
     }
   }
   console.log(arr);
