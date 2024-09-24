@@ -5,7 +5,12 @@ let arr = [];
 const regex = /[+\-*=/]{2}/;
 // const regex2 = /[+\-*=./]/;
 
-function clearDisplay() {
+function clear() {
+  inputBox.value = "";
+  arr = [];
+}
+
+function clearDisplayBomb() {
   button.style.backgroundImage = "url('./media/atomic.png')";
 
   setTimeout(() => {
@@ -44,25 +49,24 @@ addEventListener("click", function (e) {
   if (e.target.tagName === "BUTTON") {
     inputBox.value += input;
     arr.push(input);
-
     adjustFontSize();
-
-    // if (regex2.test(inputBox.value) === true) {
-    //   arr.shift();
-    //   inputBox.value = inputBox.value.slice(0, -1);
-    // }
 
     if (regex.test(inputBox.value) === true) {
       arr.pop();
       inputBox.value = inputBox.value.slice(0, -1);
-    } else if (input === "C") {
-      clearDisplay();
-    } else if (input === "=") {
-      return;
-    } else {
+    }
+    if (input === "C") {
+      clearDisplayBomb();
+    }
+    if (input === "=") {
       equals();
     }
   }
   console.log(arr);
   console.log(inputBox.value);
 });
+
+// if (regex2.test(inputBox.value) === true) {
+//   arr.shift();
+//   inputBox.value = inputBox.value.slice(0, -1);
+// }
