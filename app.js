@@ -1,9 +1,11 @@
+"use strict";
+
 const inputBox = document.querySelector("input");
 const button = document.getElementById("clear");
 
 let arr = [];
-const regex = /[+\-*=/]{2}/;
-// const regex2 = /[+\-*=./]/;
+const regex = /[+*/=]{2}/;
+const doubleMinusRegex = /--/g;
 
 function clear() {
   inputBox.value = "";
@@ -33,13 +35,20 @@ function adjustFontSize() {
 }
 
 function equals() {
-  const joinedArr = arr.join("");
+  let joinedArr = arr.join("");
+
+  joinedArr = joinedArr.replace(doubleMinusRegex, "+");
 
   const sliced = joinedArr.slice(0, -1);
-  const evaluated = eval(sliced);
-  inputBox.value = evaluated;
-  arr = [];
-  arr.push(evaluated);
+
+  try {
+    const evaluated = eval(sliced);
+    inputBox.value = evaluated;
+    arr = [];
+    arr.push(evaluated);
+  } catch (error) {
+    inputBox.value = "Error";
+  }
 }
 
 addEventListener("click", function (e) {
@@ -51,7 +60,7 @@ addEventListener("click", function (e) {
     arr.push(input);
     adjustFontSize();
 
-    if (regex.test(inputBox.value) === true) {
+    if (regex.test(inputBox.value) === true && input !== "0") {
       arr.pop();
       inputBox.value = inputBox.value.slice(0, -1);
     }
@@ -65,10 +74,12 @@ addEventListener("click", function (e) {
         arr[0] === "+" ||
         // arr[0] === "-" ||
         arr[0] === "*" ||
-        arr[0] === "/" ||
-        arr[0] === "."
+        arr[0] === "/"
+        // arr[0] === "."
       ) {
         clear();
+      } else if (arr[0] === "." && Number.isInteger(arr[1])) {
+        equals();
       } else {
         equals();
       }
