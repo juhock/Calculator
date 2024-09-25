@@ -2,7 +2,7 @@ const inputBox = document.querySelector("input");
 const button = document.getElementById("clear");
 
 let arr = [];
-const regex = /[+\-*=/]{2}/;
+const regex = /[+*/=]{2}/;
 // const regex2 = /[+\-*=./]/;
 
 function clear() {
@@ -65,10 +65,12 @@ addEventListener("click", function (e) {
         arr[0] === "+" ||
         // arr[0] === "-" ||
         arr[0] === "*" ||
-        arr[0] === "/" ||
-        arr[0] === "."
+        arr[0] === "/"
+        // arr[0] === "."
       ) {
         clear();
+      } else if (arr[0] === "." && Number.isInteger(arr[1])) {
+        equals();
       } else {
         equals();
       }
