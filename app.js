@@ -6,6 +6,7 @@ const button = document.getElementById("clear");
 let arr = [];
 const regex = /[+*/=]{2}/;
 const doubleMinusRegex = /--/g;
+const doubleZeroRegex = /00/;
 
 function clear() {
   inputBox.value = "";
@@ -39,6 +40,9 @@ function equals() {
 
   joinedArr = joinedArr.replace(doubleMinusRegex, "+");
 
+  if (arr[0] === "0" && arr[1] === "0") {
+    joinedArr = joinedArr.replace(doubleZeroRegex, "");
+  }
   const sliced = joinedArr.slice(0, -1);
 
   try {
