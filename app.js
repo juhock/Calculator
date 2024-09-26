@@ -6,8 +6,8 @@ const button = document.getElementById("clear");
 let arr = [];
 const regex = /[+*/=]{2}/;
 const doubleMinusRegex = /--/g;
-const doubleZeroRegex = /00/;
-const zerosPostOpRegex = /([+\-*/])00/g;
+const startingZerosRegex = /^0+/;
+const zerosPostOpRegex = /([+\-*/])0+/g;
 
 function clear() {
   inputBox.value = "";
@@ -39,13 +39,10 @@ function adjustFontSize() {
 function equals() {
   let joinedArr = arr.join("");
 
-  joinedArr = joinedArr.replace(doubleMinusRegex, "+");
-
-  if (arr[0] === "0" && arr[1] === "0") {
-    joinedArr = joinedArr.replace(doubleZeroRegex, "");
-  }
-
-  joinedArr = joinedArr.replace(zerosPostOpRegex, "$1");
+  joinedArr = joinedArr
+    .replace(doubleMinusRegex, "+")
+    .replace(startingZerosRegex, "")
+    .replace(zerosPostOpRegex, "$1");
 
   const sliced = joinedArr.slice(0, -1);
 
@@ -93,8 +90,8 @@ addEventListener("click", function (e) {
       }
     }
   }
-  console.log(arr);
-  console.log(inputBox.value);
+  // console.log(arr);
+  // console.log(inputBox.value);
 });
 
 // if (regex2.test(inputBox.value) === true) {
