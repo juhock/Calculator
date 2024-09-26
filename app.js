@@ -7,6 +7,7 @@ let arr = [];
 const regex = /[+*/=]{2}/;
 const doubleMinusRegex = /--/g;
 const doubleZeroRegex = /00/;
+const zerosPostOpRegex = /([+\-*/])00/g;
 
 function clear() {
   inputBox.value = "";
@@ -43,6 +44,9 @@ function equals() {
   if (arr[0] === "0" && arr[1] === "0") {
     joinedArr = joinedArr.replace(doubleZeroRegex, "");
   }
+
+  joinedArr = joinedArr.replace(zerosPostOpRegex, "$1");
+
   const sliced = joinedArr.slice(0, -1);
 
   try {
