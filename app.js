@@ -8,6 +8,7 @@ const regex = /[+*/=]{2}/;
 const doubleMinusRegex = /--/g;
 const startingZerosRegex = /^0+/;
 const zerosPostOpRegex = /([+\-*/])0+/g;
+const emptyZeros = /\b0{2,}|\b0+\b/g;
 
 function clear() {
   inputBox.value = "";
@@ -42,17 +43,20 @@ function equals() {
   joinedArr = joinedArr
     .replace(doubleMinusRegex, "+")
     .replace(startingZerosRegex, "")
-    .replace(zerosPostOpRegex, "$1");
+    .replace(zerosPostOpRegex, "$1")
+    .replace(emptyZeros, "0");
 
   const sliced = joinedArr.slice(0, -1);
-
   try {
     const evaluated = eval(sliced);
+    console.log(eval(sliced));
+
     inputBox.value = evaluated;
     arr = [];
     arr.push(evaluated);
   } catch (error) {
     inputBox.value = "Error";
+    console.log(error);
   }
 }
 
@@ -61,6 +65,10 @@ addEventListener("click", function (e) {
   const input = e.target.dataset[e.target.id];
 
   if (e.target.tagName === "BUTTON") {
+    if (input === "0" && inputBox.value === "0") {
+      return;
+    }
+
     inputBox.value += input;
     arr.push(input);
     adjustFontSize();
@@ -90,8 +98,8 @@ addEventListener("click", function (e) {
       }
     }
   }
-  // console.log(arr);
-  // console.log(inputBox.value);
+  console.log(arr);
+  console.log(inputBox.value);
 });
 
 // if (regex2.test(inputBox.value) === true) {
