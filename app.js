@@ -7,7 +7,7 @@ let arr = [];
 const regex = /[+*/=]{2}/;
 const doubleMinusRegex = /--/g;
 const startingZerosRegex = /^0+/;
-const zerosPostOpRegex = /([+\-*/])0+/g;
+const zerosPostOpRegex = /([+\-*/])0{2,}/g;
 const emptyZeros = /\b0{2,}|\b0+\b/g;
 
 function clear() {
