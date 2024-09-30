@@ -40,6 +40,15 @@ function adjustFontSize() {
 function equals() {
   let joinedArr = arr.join("");
 
+  const multiplyByZeroRegex = /(\d*\s*\*+\s*0)|(0\s*\*+\s*\d+)/;
+  // Check if multiplication by zero exists
+  if (multiplyByZeroRegex.test(joinedArr)) {
+    inputBox.value = "0";
+    arr = [];
+    arr.push(0);
+    return;
+  }
+
   joinedArr = joinedArr
     .replace(doubleMinusRegex, "+")
     .replace(startingZerosRegex, "")
