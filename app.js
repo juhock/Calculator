@@ -1,117 +1,107 @@
 "use strict";
 
 const inputBox = document.querySelector("input");
-const button = document.getElementById("clear");
+const clearButton = document.getElementById("clear");
 
 let arr = [];
-const regex = /[+*/=]{2}/;
+const consecutiveOperatorsRegex = /[+*/=]{2}/;
 const doubleMinusRegex = /--/g;
-const startingZerosRegex = /^0+/;
-const zerosPostOpRegex = /([+\-*/])0{2,}/g;
-const emptyZeros = /\b0{2,}|\b0+\b/g;
+const leadingZerosRegex = /^0+/;
+const multipleZerosAfterOperatorRegex = /([+\-*/])0{2,}/g;
+const standaloneZerosRegex = /\b0{2,}|\b0+\b/g;
 
 function clear() {
   inputBox.value = "";
   arr = [];
 }
 
-function clearDisplayBomb() {
-  button.style.backgroundImage = "url('./media/atomic.png')";
+function triggerClearAnimation() {
+  clearButton.style.backgroundImage = "url('./media/atomic.png')";
 
   setTimeout(() => {
-    button.style.backgroundImage = "url('./media/download.png')";
+    clearButton.style.backgroundImage = "url('./media/download.png')";
   }, 500);
 
-  inputBox.value = "";
-  arr = [];
+  clear();
 }
 
 function adjustFontSize() {
-  if (inputBox.value.length > 10) {
+  const length = inputBox.value.length;
+
+  if (length > 10) {
     inputBox.style.fontSize = "40px";
-  } else if (inputBox.value.length > 5) {
+  } else if (length > 5) {
     inputBox.style.fontSize = "50px";
   } else {
     inputBox.style.fontSize = "60px";
   }
+
   inputBox.scrollLeft = inputBox.scrollWidth;
 }
 
-function equals() {
-  let joinedArr = arr.join("");
+function processEquals() {
+  let expression = arr.join("");
 
+  // Regex to detect multiplication by zero
   const multiplyByZeroRegex = /(\d*\s*\*+\s*0)|(0\s*\*+\s*\d+)/;
-  // Check if multiplication by zero exists
-  if (multiplyByZeroRegex.test(joinedArr)) {
+
+  if (multiplyByZeroRegex.test(expression)) {
     inputBox.value = "0";
-    arr = [];
-    arr.push(0);
+    arr = [0];
     return;
   }
 
-  joinedArr = joinedArr
+  // Clean up expression before evaluation
+  expression = expression
     .replace(doubleMinusRegex, "+")
-    .replace(startingZerosRegex, "")
-    .replace(zerosPostOpRegex, "$1")
-    .replace(emptyZeros, "0");
+    .replace(leadingZerosRegex, "")
+    .replace(multipleZerosAfterOperatorRegex, "$1")
+    .replace(standaloneZerosRegex, "0");
 
-  const sliced = joinedArr.slice(0, -1);
+  const validExpression = expression.slice(0, -1); // Remove the last operator if "=" is pressed
+
   try {
-    const evaluated = eval(sliced);
-    console.log(eval(sliced));
-
-    inputBox.value = evaluated;
-    arr = [];
-    arr.push(evaluated);
+    const result = eval(validExpression); // Unsafe, but okay for a simple calculator. Consider using a safer evaluation method.
+    inputBox.value = result;
+    arr = [result];
   } catch (error) {
     inputBox.value = "Error";
     console.log(error);
   }
 }
 
-addEventListener("click", function (e) {
-  e.preventDefault();
-  const input = e.target.dataset[e.target.id];
+function handleButtonClick(event) {
+  event.preventDefault();
+  const buttonValue = event.target.dataset[event.target.id];
 
-  if (e.target.tagName === "BUTTON") {
-    if (input === "0" && inputBox.value === "0") {
+  if (event.target.tagName === "BUTTON") {
+    if (buttonValue === "0" && inputBox.value === "0") {
       return;
     }
 
-    inputBox.value += input;
-    arr.push(input);
+    inputBox.value += buttonValue;
+    arr.push(buttonValue);
     adjustFontSize();
 
-    if (regex.test(inputBox.value) === true && input !== "0") {
+    // Prevent consecutive operators
+    if (consecutiveOperatorsRegex.test(inputBox.value) && buttonValue !== "0") {
       arr.pop();
       inputBox.value = inputBox.value.slice(0, -1);
     }
-    if (input === "C") {
-      clearDisplayBomb();
+
+    if (buttonValue === "C") {
+      triggerClearAnimation();
     }
 
-    if (input === "=") {
-      if (
-        arr[0] === "=" ||
-        arr[0] === "+" ||
-        // arr[0] === "-" ||
-        arr[0] === "*" ||
-        arr[0] === "/"
-        // arr[0] === "."
-      ) {
+    if (buttonValue === "=") {
+      if (["=", "+", "*", "/"].includes(arr[0])) {
         clear();
-      } else if (arr[0] === "." && Number.isInteger(arr[1])) {
-        equals();
       } else {
-        equals();
+        processEquals();
       }
     }
   }
-  console.log(arr);
-  console.log(inputBox.value);
-});
+}
 
-// if (regex2.test(inputBox.value) === true) {
-//   arr.shift();
-//   inputBox.value = inputBox.value.slice(0, -1);
-// }
+// Attach event listener to capture button clicks
+addEventListener("click", handleButtonClick);
