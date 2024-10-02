@@ -76,3 +76,27 @@ body {
   box-shadow: none;
   border-radius: 0;
 }
+
+@media (max-width: 600px) {
+  #calculatorBody {
+    height: 380px;
+    width: 300px;
+    margin: 20px;
+  }
+
+  .buttons {
+    margin-top: 20px;
+  }
+
+  .btn {
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+  }
+
+  .iconButton {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+  }
+}
