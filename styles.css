@@ -82,6 +82,8 @@ body {
     height: 380px;
     width: 300px;
     margin: 20px;
+    padding-bottom: 15px;
+    border-radius: 5px;
   }
 
   .buttons {
@@ -95,8 +97,10 @@ body {
   }
 
   .iconButton {
-    width: 80px;
-    height: 80px;
     background-size: cover;
+    position: relative;
+    top: 20px;
+    min-width: 80px;
+    min-height: 80px;
   }
 }
