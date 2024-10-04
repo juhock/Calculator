@@ -51,6 +51,14 @@ function processEquals() {
     return;
   }
 
+  // Regex to detect number divided by zero
+  const divideByZeroRegex = /\/\s*0(?:\.0*)?\b/;
+  if (divideByZeroRegex.test(expression)) {
+    inputBox.value = "undefined";
+    arr = [];
+    return;
+  }
+
   // Clean up expression before evaluation
   expression = expression
     .replace(doubleMinusRegex, "+")
@@ -61,7 +69,7 @@ function processEquals() {
   const validExpression = expression.slice(0, -1); // Remove the last operator if "=" is pressed
 
   try {
-    const result = eval(validExpression); // Unsafe, but okay for a simple calculator. Consider using a safer evaluation method.
+    const result = eval(validExpression);
     inputBox.value = result;
     arr = [result];
   } catch (error) {
@@ -101,6 +109,8 @@ function handleButtonClick(event) {
       }
     }
   }
+  console.log(arr);
+  console.log(inputBox.value);
 }
 
 // Attach event listener to capture button clicks
